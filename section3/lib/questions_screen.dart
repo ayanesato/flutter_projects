@@ -4,7 +4,12 @@ import 'package:section3/data/questions.dart';
 import "package:google_fonts/google_fonts.dart";
 
 class QuestionsScreen extends StatefulWidget {
-  const QuestionsScreen({super.key});
+  const QuestionsScreen({
+    super.key,
+    required this.onSelectAnswer,
+  });
+
+  final void Function(String answer) onSelectAnswer;
 
   @override
   State<QuestionsScreen> createState() {
@@ -15,11 +20,13 @@ class QuestionsScreen extends StatefulWidget {
 class _QuestionScreenState extends State<QuestionsScreen> {
   var currentQuestionIndex = 0;
 
-  answerQuestion(){
-    setState(() {
-      currentQuestionIndex ++;
-    });
-
+  void answerQuestion(String selectedAnswer) {
+    widget.onSelectAnswer(selectedAnswer);
+    setState(
+      () {
+        currentQuestionIndex++;
+      },
+    );
   }
 
   @override
@@ -29,7 +36,7 @@ class _QuestionScreenState extends State<QuestionsScreen> {
     return SizedBox(
       width: double.infinity,
       child: Container(
-        margin: const EdgeInsets.all(20),
+        margin: const EdgeInsets.all(40),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -37,8 +44,8 @@ class _QuestionScreenState extends State<QuestionsScreen> {
             Text(
               currentQuestion.text,
               style: GoogleFonts.lato(
-                color:Colors.white,
-                fontSize:24,
+                color: Colors.white,
+                fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
               textAlign: TextAlign.center,
@@ -46,13 +53,14 @@ class _QuestionScreenState extends State<QuestionsScreen> {
             const SizedBox(
               height: 30,
             ),
-            ...currentQuestion.getShuffledAnswers().map( (answer) {
-            return AnswerButton(
+            ...currentQuestion.getShuffledAnswers().map((answer) {
+              return AnswerButton(
                 answerText: answer,
-                onTap: (answerQuestion)
-            );
-            }
-            )
+                onTap: () {
+                  answerQuestion(answer);
+                },
+              );
+            })
           ],
         ),
       ),
