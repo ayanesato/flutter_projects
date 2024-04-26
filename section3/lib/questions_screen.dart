@@ -33,6 +33,10 @@ class _QuestionScreenState extends State<QuestionsScreen> {
             onPressed: () {},
             child: const Text("Answer 3"),
           ),
+          ElevatedButton(
+            onPressed: () {},
+            child: const Text("Answer 4"),
+          ),
         ],
       ),
     );
