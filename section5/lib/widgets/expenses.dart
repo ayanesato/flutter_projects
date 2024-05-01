@@ -1,8 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:section5/models/expense.dart';
 import 'package:section5/widgets/expenses_list.dart';
 import 'package:section5/widgets/new_expense.dart';
 import 'package:section5/widgets/chart/chart.dart';
+import 'dart:developer';
 
 class Expenses extends StatefulWidget {
   const Expenses({super.key});
@@ -31,6 +33,7 @@ class _NewExpensesState extends State<Expenses> {
 
   void _openAddExpenseOverlay() {
     showModalBottomSheet(
+      useSafeArea: true,
       isScrollControlled: true,
       context: context,
       builder: (ctx) => NewExpense(onAddExpense: _addExpense),
@@ -65,6 +68,9 @@ class _NewExpensesState extends State<Expenses> {
 
   @override
   Widget build(BuildContext context) {
+    final width=MediaQuery.of(context).size.width;
+    final height=MediaQuery.of(context).size.height;
+
     Widget mainContent = const Center(
       child: Text("No expenses found. Start adding some!"),
     );
@@ -85,14 +91,24 @@ class _NewExpensesState extends State<Expenses> {
           ),
         ],
       ),
-      body: Column(
+      body: width < 600? Column(
         children: [
           Chart(expenses:_registeredExpenses),
           Expanded(
             child: mainContent,
           ),
         ],
-      ),
+      )
+          :Row(
+        children: [
+          Expanded(
+              child: Chart(expenses:_registeredExpenses),
+          ),
+          Expanded(
+            child: mainContent,
+          ),
+        ],
+      )
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:section5/widgets/expenses.dart';
+import 'package:flutter/services.dart';
 
 var kColorScheme = ColorScheme.fromSeed(
   seedColor: const Color.fromARGB(210, 75, 173, 241),
@@ -11,6 +12,7 @@ var kDarkColorScheme = ColorScheme.fromSeed(
 );
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(
     MaterialApp(
       darkTheme: ThemeData.dark().copyWith(
