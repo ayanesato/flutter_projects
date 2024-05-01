@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:section5/models/expense.dart';
 import 'package:section5/widgets/expenses_list.dart';
 import 'package:section5/widgets/new_expense.dart';
+import 'package:section5/widgets/chart/chart.dart';
 
 class Expenses extends StatefulWidget {
   const Expenses({super.key});
@@ -64,7 +65,7 @@ class _NewExpensesState extends State<Expenses> {
 
   @override
   Widget build(BuildContext context) {
-    Widget mainContent = Center(
+    Widget mainContent = const Center(
       child: Text("No expenses found. Start adding some!"),
     );
 
@@ -86,7 +87,7 @@ class _NewExpensesState extends State<Expenses> {
       ),
       body: Column(
         children: [
-          const Text("The chart"),
+          Chart(expenses:_registeredExpenses),
           Expanded(
             child: mainContent,
           ),
